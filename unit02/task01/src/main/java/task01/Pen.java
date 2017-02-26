@@ -7,7 +7,6 @@ public class Pen {
     public Pen(int price, String producer) {
         this.price = price;
         this.producer = producer;
-
     }
 
     @Override
