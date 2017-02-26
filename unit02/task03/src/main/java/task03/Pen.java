@@ -5,8 +5,7 @@ public class Pen extends Stationery {
     private int thickness;
 
     public Pen(int price, String producer, String color, int thickness){
-        this.setPrice(price);
-        this.setProducer(producer);
+        super(price, producer);
         this.color = color;
         this.thickness = thickness;
     }

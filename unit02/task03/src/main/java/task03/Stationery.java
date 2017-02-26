@@ -15,4 +15,14 @@ public abstract class Stationery {
     public void setProducer(String producer){
         this.producer = producer;
     }
+
+    public Stationery(int price, String producer){
+        this.price = price;
+        this.producer = producer;
+    }
+
+    public Stationery(){
+        this.price = 0;
+        this.producer = "unknown";
+    }
 }

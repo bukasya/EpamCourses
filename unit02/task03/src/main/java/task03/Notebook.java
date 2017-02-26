@@ -6,8 +6,7 @@ public class Notebook extends Stationery {
     private String cover;
 
     public Notebook(int price, String producer, int sheets, String size, String cover){
-        this.setPrice(price);
-        this.setProducer(producer);
+        super(price, producer);
         this.sheets = sheets;
         this.size = size;
         this.cover = cover;

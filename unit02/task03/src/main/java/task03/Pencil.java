@@ -5,8 +5,7 @@ public class Pencil extends Stationery{
     private int hardness;
 
     public Pencil(int price, String producer, String color, int hardness){
-        this.setPrice(price);
-        this.setProducer(producer);
+        super(price, producer);
         this.color = color;
         this.hardness = hardness;
     }
