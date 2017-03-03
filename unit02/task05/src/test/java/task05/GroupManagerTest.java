@@ -3,6 +3,8 @@ package task05;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import static org.junit.Assert.*;
 
@@ -19,13 +21,20 @@ public class GroupManagerTest {
         studentsList.add(new Student("Ana"));
 
         GroupManager groupManager = new GroupManager();
-        ArrayList<ArrayList<Student>> s = groupManager.createGroups(studentsList);
+        ArrayList<HashMap<Student, Mark>> groups = groupManager.createGroups(studentsList);
 
-        assertEquals(4, s.size());
-        for (ArrayList<Student> st:s) {
-            for (Student stud:st) {
-                System.out.print(stud.getName() + " ");
+        assertEquals(4, groups.size());
+        Disciplines[] d = Disciplines.values();
+        int i = 0;
+        for (HashMap<Student, Mark> studentMarkHashMap:groups) {
+            System.out.print(d[i].name() + ": ");
+            for (Map.Entry<Student,Mark> entry: studentMarkHashMap.entrySet()) {
+                Student student = entry.getKey();
+                Mark mark = entry.getValue();
+
+                System.out.printf(student.getName() + " " + mark.getValue() + ", ");
             }
+            i++;
             System.out.println();
         }
     }

@@ -4,7 +4,7 @@ public class Mark<T extends Number> implements Comparable<Mark> {
     private T value;
 
     public Mark(T value){
-        if((Double) value >= 0)
+        if((Double)value >= 0)
             this.value = value;
         else
             throw new IllegalArgumentException("Mark can't be negative");

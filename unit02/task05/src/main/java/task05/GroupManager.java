@@ -1,20 +1,24 @@
 package task05;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Random;
 
 public class GroupManager {
-    private ArrayList<ArrayList<Student>> groups = new ArrayList<>();
+    private ArrayList<HashMap<Student, Mark>> groups = new ArrayList<>();
 
-    public ArrayList<ArrayList<Student>> createGroups(ArrayList<Student> studentsList){
+    public ArrayList<HashMap<Student, Mark>> createGroups(ArrayList<Student> studentsList){
         for (Disciplines d: Disciplines.values()) {
-            ArrayList<Student> group = new ArrayList<>();
+            HashMap<Student, Mark> group = new HashMap<>();
             for(int i = 0; i < 5; i++) {
                 Student s = randomStudent(studentsList);
-                if(group.contains(s)){
+                if(group.containsKey(s)){
                     continue;
                 }
-                group.add(s);
+                if(d.ordinal()%2 == 0)
+                    group.put(s, new Mark<>(randomValue(2.0, 5.0)));
+                else
+                    group.put(s, new Mark<Double>((double)(Integer)randomValue(2.0, 5.0).intValue()));
             }
             groups.add(group);
         }
@@ -25,5 +29,10 @@ public class GroupManager {
         Random rand = new Random();
         Student randomStud = studentsList.get(rand.nextInt(studentsList.size()));
         return randomStud;
+    }
+
+    private Double randomValue(double min, double max){
+        Random rand = new Random();
+        return new Double(min + (max - min) * rand.nextDouble());
     }
 }
