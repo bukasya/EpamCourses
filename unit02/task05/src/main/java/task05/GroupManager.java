@@ -1,11 +1,24 @@
 package task05;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Random;
+import java.util.*;
 
 public class GroupManager {
+    private final double MIN_MARK = 2.0;
+    private final double MAX_MARK = 5.0;
     private ArrayList<HashMap<Student, Mark>> groups = new ArrayList<>();
+
+    public ArrayList<HashMap<Student, Mark>> createGroupsWithOneStudent(Student student){
+        for(Disciplines d: Disciplines.values()) {
+            HashMap<Student, Mark> group = new HashMap<>();
+            if (d.ordinal() % 2 == 0) {
+                group.put(student, new Mark<>(randomValue(MIN_MARK, MAX_MARK)));
+            }
+            else
+                group.put(student, new Mark<Double>((double)(Integer)randomValue(MIN_MARK, MAX_MARK).intValue()));
+            groups.add(group);
+        }
+        return groups;
+    }
 
     public ArrayList<HashMap<Student, Mark>> createGroups(ArrayList<Student> studentsList){
         for (Disciplines d: Disciplines.values()) {
@@ -31,30 +44,47 @@ public class GroupManager {
         return randomStud;
     }
 
-    //// TODO: 03.03.2017 replace with randomMark()
     private Double randomValue(double min, double max){
         Random rand = new Random();
         return new Double(min + (max - min) * rand.nextDouble());
     }
 
     public void compareMarksForStudent(Student student){
-        //HashMap<Disciplines, Mark> h = new HashMap<>();
-        ArrayList<Mark> marks = new ArrayList<>();
+        HashMap<Disciplines, Mark> h = new HashMap<>();
         Disciplines[] d = Disciplines.values();
         int i = 0;
         for (HashMap<Student, Mark> studentMarkHashMap: groups) {
             if(studentMarkHashMap.containsKey(student)){
-                marks.add(studentMarkHashMap.get(student));
-                //h.put(d[i], studentMarkHashMap.get(student));
-            }
-            else marks.add(new Mark(0.0));
-        }
-        for (Mark mark: marks) {
-            if(!mark.getValue().equals((double)0)){
-                System.out.println(d[i].toString() + " " + mark.getValue());
+                h.put(d[i], studentMarkHashMap.get(student));
             }
             i++;
         }
+        System.out.println("Marks for student " + student.getName());
+        printMap(h);
 
+        HashMap<Disciplines, Mark> sortedMarks = sortByComparator(h);
+
+        System.out.println("------------------------");
+        System.out.println("Sorted marks for student " + student.getName());
+        printMap(sortedMarks);
+    }
+
+    private HashMap<Disciplines, Mark> sortByComparator(HashMap<Disciplines, Mark> unsortedMap){
+        List<Map.Entry<Disciplines, Mark>> list = new ArrayList<>(unsortedMap.entrySet());
+
+        Collections.sort(list, (o1, o2) -> o2.getValue().compareTo(o1.getValue()));
+
+        HashMap<Disciplines, Mark> sortedMap = new LinkedHashMap<>();
+        for (Map.Entry<Disciplines,Mark> entry: list) {
+            sortedMap.put(entry.getKey(), entry.getValue());
+        }
+
+        return sortedMap;
+    }
+
+    public static void printMap(HashMap<Disciplines, Mark> map){
+        for (Map.Entry<Disciplines,Mark> entry: map.entrySet()) {
+            System.out.println(entry.getKey() + ": " + entry.getValue().getValue());
+        }
     }
 }

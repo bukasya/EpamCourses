@@ -43,18 +43,11 @@ public class GroupManagerTest {
 
     @Test
     public void testCompareMarksForStudent() throws Exception {
-        studentsList.clear();
-        studentsList.add(new Student("Aviana"));
-        studentsList.add(new Student("Orisa"));
-        studentsList.add(new Student("Genji"));
-        studentsList.add(new Student("Pharah"));
-        studentsList.add(new Student("Thrall"));
-        studentsList.add(new Student("Uther"));
-        studentsList.add(new Student("Ana"));
+        Student aviana = new Student("Aviana");
 
-        groups = groupManager.createGroups(studentsList);
+        groups = groupManager.createGroupsWithOneStudent(aviana);
 
-        groupManager.compareMarksForStudent(groupManager.randomStudent(studentsList));
+        groupManager.compareMarksForStudent(aviana);
     }
 
 }
