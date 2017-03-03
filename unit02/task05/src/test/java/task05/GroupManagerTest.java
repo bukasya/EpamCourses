@@ -26,28 +26,32 @@ public class GroupManagerTest {
         groups = groupManager.createGroups(studentsList);
 
         assertEquals(4, groups.size());
-        Disciplines[] d = Disciplines.values();
-        int i = 0;
-        for (HashMap<Student, Mark> studentMarkHashMap:groups) {
-            System.out.print(d[i].name() + ": ");
-            for (Map.Entry<Student,Mark> entry: studentMarkHashMap.entrySet()) {
-                Student student = entry.getKey();
-                Mark mark = entry.getValue();
-
-                System.out.printf(student.getName() + " " + mark.getValue() + ", ");
-            }
-            i++;
-            System.out.println();
-        }
     }
 
     @Test
     public void testCompareMarksForStudent() throws Exception {
+        ArrayList<Mark> markList = new ArrayList<>();
         Student aviana = new Student("Aviana");
 
         groups = groupManager.createGroupsWithOneStudent(aviana);
+        HashMap<Disciplines, Mark> disciplinesMarkHashMap = groupManager.compareMarksForStudent(aviana);
 
-        groupManager.compareMarksForStudent(aviana);
+        for (Map.Entry<Disciplines, Mark> entry: disciplinesMarkHashMap.entrySet()) {
+            markList.add(entry.getValue());
+        }
+
+        assertTrue(isSorted(markList));
+
+    }
+
+    public boolean isSorted(ArrayList<Mark> list)
+    {
+        boolean sorted = false;
+        for (int i = 1; i < list.size(); i++) {
+            if (list.get(i-1).compareTo(list.get(i)) > 0) sorted = true;
+        }
+
+        return sorted;
     }
 
 }

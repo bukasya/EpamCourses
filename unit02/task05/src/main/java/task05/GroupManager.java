@@ -49,7 +49,7 @@ public class GroupManager {
         return new Double(min + (max - min) * rand.nextDouble());
     }
 
-    public void compareMarksForStudent(Student student){
+    public HashMap<Disciplines, Mark> compareMarksForStudent(Student student){
         HashMap<Disciplines, Mark> h = new HashMap<>();
         Disciplines[] d = Disciplines.values();
         int i = 0;
@@ -59,14 +59,10 @@ public class GroupManager {
             }
             i++;
         }
-        System.out.println("Marks for student " + student.getName());
-        printMap(h);
 
         HashMap<Disciplines, Mark> sortedMarks = sortByComparator(h);
 
-        System.out.println("------------------------");
-        System.out.println("Sorted marks for student " + student.getName());
-        printMap(sortedMarks);
+        return sortedMarks;
     }
 
     private HashMap<Disciplines, Mark> sortByComparator(HashMap<Disciplines, Mark> unsortedMap){
@@ -80,11 +76,5 @@ public class GroupManager {
         }
 
         return sortedMap;
-    }
-
-    public static void printMap(HashMap<Disciplines, Mark> map){
-        for (Map.Entry<Disciplines,Mark> entry: map.entrySet()) {
-            System.out.println(entry.getKey() + ": " + entry.getValue().getValue());
-        }
     }
 }
