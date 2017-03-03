@@ -9,9 +9,12 @@ import java.util.Map;
 import static org.junit.Assert.*;
 
 public class GroupManagerTest {
+
+    ArrayList<Student> studentsList = new ArrayList<>();
+    GroupManager groupManager = new GroupManager();
+    ArrayList<HashMap<Student, Mark>> groups;
     @Test
     public void testCreateGroups() throws Exception {
-        ArrayList<Student> studentsList = new ArrayList<>();
         studentsList.add(new Student("Aviana"));
         studentsList.add(new Student("Orisa"));
         studentsList.add(new Student("Genji"));
@@ -20,8 +23,7 @@ public class GroupManagerTest {
         studentsList.add(new Student("Uther"));
         studentsList.add(new Student("Ana"));
 
-        GroupManager groupManager = new GroupManager();
-        ArrayList<HashMap<Student, Mark>> groups = groupManager.createGroups(studentsList);
+        groups = groupManager.createGroups(studentsList);
 
         assertEquals(4, groups.size());
         Disciplines[] d = Disciplines.values();
@@ -37,6 +39,22 @@ public class GroupManagerTest {
             i++;
             System.out.println();
         }
+    }
+
+    @Test
+    public void testCompareMarksForStudent() throws Exception {
+        studentsList.clear();
+        studentsList.add(new Student("Aviana"));
+        studentsList.add(new Student("Orisa"));
+        studentsList.add(new Student("Genji"));
+        studentsList.add(new Student("Pharah"));
+        studentsList.add(new Student("Thrall"));
+        studentsList.add(new Student("Uther"));
+        studentsList.add(new Student("Ana"));
+
+        groups = groupManager.createGroups(studentsList);
+
+        groupManager.compareMarksForStudent(groupManager.randomStudent(studentsList));
     }
 
 }
