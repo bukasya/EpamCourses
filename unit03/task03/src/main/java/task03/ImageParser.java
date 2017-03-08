@@ -5,27 +5,29 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class ImageParser {
-    private Pattern pattern = Pattern.compile("\\([Рр]ис\\.\\s\\d+\\)");
-    private Pattern intPattern = Pattern.compile("\\d");
-    private int lastNumber;
-    private File file = new File("D:\\Java\\EpamCourses\\unit03\\task03\\src\\main\\Java.SE.03.Information handling_task_attachment.html");
+    private Pattern imageReferencePattern = Pattern.compile("\\([Рр]ис\\.\\s\\d+\\)");
+    private Pattern imageNumberPattern = Pattern.compile("\\d");
+    private int lastImageNumber;
+    private File initialFile = new File("src\\main\\Java.SE.03.Information handling_task_attachment.html");
 
     public void parseFile(){
         String currentLine;
         try {
-            FileInputStream fileInputStream = new FileInputStream(file);
-            InputStreamReader isr = new InputStreamReader(fileInputStream, "windows-1251");
-            BufferedReader bufferedReader = new BufferedReader(isr);
+            FileInputStream fileInputStream = new FileInputStream(initialFile);
+            InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream, "windows-1251");
+            BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
             while ((currentLine = bufferedReader.readLine()) != null){
-                Matcher matcher = pattern.matcher(currentLine);
+                Matcher matcher = imageReferencePattern.matcher(currentLine);
                 while(matcher.find()){
-                    Matcher intMatcher = intPattern.matcher(matcher.group());
+                    //parse image number from imageNumberPattern
+                    Matcher intMatcher = imageNumberPattern.matcher(matcher.group());
                     if(intMatcher.find()){
                         int parsedValue = Integer.parseInt(intMatcher.group());
-                        if(parsedValue > lastNumber){
-                            lastNumber = parsedValue;
+                        if(parsedValue > lastImageNumber){
+                            lastImageNumber = parsedValue;
                         }
                         else{
+                            //if any next image number doesn't exceed previous
                             System.out.println("The author refers to the figures inconsistently.");
                             return;
                         }
