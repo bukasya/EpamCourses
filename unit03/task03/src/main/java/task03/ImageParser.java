@@ -11,10 +11,15 @@ public class ImageParser {
     private Pattern imageReferencePattern = Pattern.compile("\\([Рр]ис\\.\\s\\d+\\)");
     private Pattern imageNumberPattern = Pattern.compile("\\d");
     private int lastImageNumber;
-    private File initialFile = new File("src\\main\\Java.SE.03.Information handling_task_attachment.html");
-    private File receivedFile = new File("src\\main\\received.html");
+    private File initialFile;
+    private File receivedFile;
 
-    public void parseFile() {
+    public ImageParser(File initialFile, File receivedFile){
+        this.initialFile = initialFile;
+        this.receivedFile = receivedFile;
+    }
+
+    public boolean checkIfImagesAreConsistent() {
         String currentLine;
         try {
             FileInputStream fileInputStream = new FileInputStream(initialFile);
@@ -32,20 +37,22 @@ public class ImageParser {
                         } else {
                             //if any next image number doesn't exceed previous
                             System.out.println("The author refers to the figures inconsistently.");
-                            return;
+                            return false;
                         }
                     }
                 }
             }
             System.out.println("The author refers to the figures consistently.");
+            return true;
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return false;
     }
 
-    public ArrayList<String> splitToSentences() {
+    private ArrayList<String> splitToSentences() {
         ArrayList<String> sentences = new ArrayList<>();
         try {
             FileInputStream fileInputStream = new FileInputStream(initialFile);
