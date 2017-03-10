@@ -3,12 +3,26 @@ package task01;
 import org.junit.Test;
 
 import java.io.File;
+import java.util.Map;
 import java.util.TreeMap;
 
 import static org.junit.Assert.*;
 
 public class KeywordsByteParserTest {
-        KeywordsByteParser javaParser = new KeywordsByteParser();
+    KeywordsByteParser javaParser = new KeywordsByteParser();
+
+    @Test
+    public void testParseFileForKeywords() throws Exception {
+        File file = new File("src\\main\\javakeywords.txt");
+        File javaFile = new File("src\\test\\CrazyLogger.java");
+        TreeMap<String, Integer> keywordsMap;
+
+        keywordsMap = javaParser.readKeywords(file);
+        javaParser.parseFileForKeywords(javaFile, keywordsMap);
+
+        assertEquals(2, (long)keywordsMap.get("import"));
+        assertEquals(1, (long)keywordsMap.get("if"));
+    }
 
     @Test
     public void testReadKeywords() throws Exception {
