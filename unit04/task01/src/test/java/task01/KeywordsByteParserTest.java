@@ -12,6 +12,21 @@ public class KeywordsByteParserTest {
     KeywordsByteParser javaParser = new KeywordsByteParser();
 
     @Test
+    public void writeKeywordsQuantityToFile() throws Exception {
+        File outpFile = new File("received.txt");
+        File keywordsFile = new File("src\\javakeywords.txt");
+        File javaFile = new File("src\\CrazyLogger.java");
+        TreeMap<String, Integer> keywordsMap;
+
+        keywordsMap = javaParser.readKeywords(keywordsFile);
+        javaParser.parseFileForKeywords(javaFile, keywordsMap);
+
+        javaParser.writeKeywordsQuantityToFile(outpFile, keywordsMap);
+
+        assertTrue(outpFile.exists());
+    }
+
+    @Test
     public void testParseFileForKeywords() throws Exception {
         File file = new File("src\\main\\javakeywords.txt");
         File javaFile = new File("src\\test\\CrazyLogger.java");

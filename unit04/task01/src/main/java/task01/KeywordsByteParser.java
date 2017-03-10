@@ -2,11 +2,12 @@ package task01;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.TreeMap;
 
 public class KeywordsByteParser {
 
-    public static TreeMap<String, Integer> readKeywords(File file){
+    public TreeMap<String, Integer> readKeywords(File file){
         TreeMap<String, Integer> keywordsMap = new TreeMap<>();
         StringBuilder buffer = new StringBuilder();
         int i;
@@ -24,6 +25,7 @@ public class KeywordsByteParser {
                     buffer.append((char)i);
                 }
             } while (i != -1);
+            inputStream.close();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -63,6 +65,7 @@ public class KeywordsByteParser {
                     buffer.append((char)i);
                 }
             } while (i != -1);
+            inputStream.close();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -70,5 +73,25 @@ public class KeywordsByteParser {
         }
     }
 
+    public void writeKeywordsQuantityToFile(File file, TreeMap<String, Integer> keywordsMap){
+        try {
+            FileOutputStream outputStream = new FileOutputStream(file);
+            BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(outputStream);
+
+            for (Map.Entry<String, Integer> entry: keywordsMap.entrySet()) {
+                int value = entry.getValue();
+                if (value > 0) {
+                    String s = entry.getKey() + " " + value + "\n";
+                    bufferedOutputStream.write(s.getBytes());
+                    bufferedOutputStream.flush();
+                }
+            }
+            outputStream.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 }
