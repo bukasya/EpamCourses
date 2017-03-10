@@ -3,7 +3,6 @@ package task01;
 import org.junit.Test;
 
 import java.io.File;
-import java.util.Map;
 import java.util.TreeMap;
 
 import static org.junit.Assert.*;
