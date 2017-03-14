@@ -79,34 +79,34 @@ public class FilesAndDirViewerTest {
     public void testGoToLowerExistingDir(){
         String path = "D:\\Java\\EpamCourses\\unit03\\task03\\src\\main";
 
-        assertEquals(0, filesAndDirViewer.goToLowerDir(path));
+        assertEquals("D:\\Java\\EpamCourses\\unit03\\task03\\src", filesAndDirViewer.goToLowerDir(path));
     }
 
     @Test
     public void testGoToLowerNotExistingDir(){
         String path = "D:\\Java\\EpamCourses\\unit03\\task03\\src\\task01";
 
-        assertEquals(1, filesAndDirViewer.goToLowerDir(path));
+        assertEquals(path, filesAndDirViewer.goToLowerDir(path));
     }
 
     @Test
     public void testGoToUpperExistingDirectory(){
         String path = "D:\\Java\\EpamCourses\\unit03\\task03\\src\\main";
 
-        assertEquals(0, filesAndDirViewer.goToUpperDir(path, "java"));
+        assertEquals(path + "\\" + "java", filesAndDirViewer.goToUpperDir(path, "java"));
     }
 
     @Test
     public void testGoToUpperNotExistingDirectory(){
         String path = "D:\\Java\\EpamCourses\\unit03\\task03\\src\\main";
 
-        assertEquals(1, filesAndDirViewer.goToUpperDir(path, "task01"));
+        assertEquals(path, filesAndDirViewer.goToUpperDir(path, "task01"));
     }
 
     @Test
     public void testGoToUpperDirectoryFromNotExistingDirectory(){
         String path = "D:\\Java\\EpamCourses\\unit03\\task03\\src\\task01";
 
-        assertEquals(-1, filesAndDirViewer.goToUpperDir(path, "java"));
+        assertEquals(path, filesAndDirViewer.goToUpperDir(path, "java"));
     }
 }
