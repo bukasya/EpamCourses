@@ -7,7 +7,9 @@ class HeadDoctor extends Doctor(){}
 
 |                                                     | Correct | Explanation                       |
 |-----------------------------------------------------|---------|-----------------------------------|
-| ```java Doctor doctor1 = new Doctor();```                      | +       | No class cast                     |
+| ```java 
+Doctor doctor1 = new Doctor();
+```                      | +       | No class cast                     |
 | Doctor doctor2 = new MedicalStaff();                | -       | Descendant class cast             |
 | Doctor doctor3 = new HeadDoctor();                  | +       | Ascendant class cast              |
 | Object object1 = new HeadDoctor();                  | +       | Ascendant class cast              |
