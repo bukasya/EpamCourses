@@ -39,7 +39,15 @@ public class CustomLinkedList<T> implements List<T> {
 
     @Override
     public Object[] toArray() {
-        return new Object[0];
+        Object[] array = new Object[size];
+        Node<T> node = head;
+        int i = 0;
+        while (node.hasNext()){
+            node = node.next;
+            array[i] = node.value;
+            i++;
+        }
+        return array;
     }
 
     @Override

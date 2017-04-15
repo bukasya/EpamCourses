@@ -238,6 +238,17 @@ public class CustomListsTest {
         List<String> newList = list.subList(2, 15);
     }
 
+    @Test
+    public void testThatWeCanGetListAsArray() throws Exception {
+        fillList();
+
+        Object[] array = list.toArray();
+
+        assertTrue(array.length == list.size());
+        assertTrue(array[0] == list.get(0));
+        assertTrue(array[9] == list.get(9));
+    }
+
     //fill list with 10 elements to check capacity increase
     private void fillList() {
         list.add("aa0a");
