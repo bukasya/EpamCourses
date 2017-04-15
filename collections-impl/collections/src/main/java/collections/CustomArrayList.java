@@ -75,12 +75,29 @@ public class CustomArrayList<T> implements List<T> {
 
     @Override
     public boolean addAll(Collection<? extends T> c) {
-        return false;
+        if(data.length < size + c.size()){
+            int newLength = (data.length * 3) / 2 + c.size();
+            data = Arrays.copyOf(data, newLength);
+        }
+        for (T element: c) {
+            data[++size] = element;
+        }
+        return true;
     }
 
     @Override
     public boolean addAll(int index, Collection<? extends T> c) {
-        return false;
+        if(data.length < size + c.size()){
+            int newLength = (data.length * 3) / 2 + c.size();
+            data = Arrays.copyOf(data, newLength);
+        }
+        int length = size + c.size() - index;
+        System.arraycopy(data, index, data, index+c.size(), length+1);
+        for (T element: c) {
+            data[index++] = element;
+            size++;
+        }
+        return true;
     }
 
     @Override

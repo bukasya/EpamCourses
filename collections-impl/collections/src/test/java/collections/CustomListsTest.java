@@ -7,10 +7,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
-import java.util.NoSuchElementException;
+import java.util.*;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -247,6 +244,36 @@ public class CustomListsTest {
         assertTrue(array.length == list.size());
         assertTrue(array[0] == list.get(0));
         assertTrue(array[9] == list.get(9));
+    }
+
+    @Test
+    public void testThatWeCanAddCollectionOfElementsToTheEndOfList() throws Exception {
+        fillList();
+
+        List<String> listToAdd = new ArrayList<>();
+        listToAdd.add("abc");
+        listToAdd.add("cde");
+        listToAdd.add("xyz");
+
+        list.addAll(listToAdd);
+
+        assertThat(list.size(), is(equalTo(13)));
+    }
+
+    @Test
+    public void testThatWeCanAddCollectionOfElementsAtTheSpecifiedPlace() throws Exception {
+        fillList();
+
+        List<String> listToAdd = new ArrayList<>();
+        listToAdd.add("abc");
+        listToAdd.add("cde");
+        listToAdd.add("xyz");
+
+        list.addAll(2, listToAdd);
+
+        assertThat(list.size(), is(equalTo(13)));
+        assertThat(list.get(2), is(equalTo("abc")));
+        assertThat(list.get(4), is(equalTo("xyz")));
     }
 
     //fill list with 10 elements to check capacity increase

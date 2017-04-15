@@ -89,12 +89,34 @@ public class CustomLinkedList<T> implements List<T> {
 
     @Override
     public boolean addAll(Collection<? extends T> c) {
-        return false;
+        Node<T> node = head;
+        while (node.hasNext()){
+            node = node.next;
+        }
+        for (T element: c) {
+            Node<T> nodeToAdd = new Node<>(element);
+            node.next = nodeToAdd;
+            node = nodeToAdd;
+            size++;
+        }
+        return true;
     }
 
     @Override
     public boolean addAll(int index, Collection<? extends T> c) {
-        return false;
+        Node<T> node = head;
+        for(int i = 0; i < index; i++){
+            node = node.next;
+        }
+        Node<T> tailPart = node.next;
+        for (T element: c) {
+            Node<T> nodeToAdd = new Node<>(element);
+            node.next = nodeToAdd;
+            node = nodeToAdd;
+            size++;
+        }
+        node.next = tailPart;
+        return true;
     }
 
     @Override
