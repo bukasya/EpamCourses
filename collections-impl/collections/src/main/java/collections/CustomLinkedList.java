@@ -182,7 +182,19 @@ public class CustomLinkedList<T> implements List<T> {
 
     @Override
     public List<T> subList(int fromIndex, int toIndex) {
-        return null;
+        if(fromIndex > 0 && toIndex > 0){
+            if(fromIndex <= size && toIndex <= size){
+                if(fromIndex < toIndex){
+                    List<T> newList = new CustomLinkedList<>();
+                    for(int i = fromIndex; i <= toIndex; i++){
+                        newList.add(getNodeByIndex(i).value);
+                    }
+                    return newList;
+                }
+                throw new IllegalArgumentException();
+            }
+        }
+        throw new IndexOutOfBoundsException();
     }
 
     private Node<T> getNodeByIndex(int index) {

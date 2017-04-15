@@ -205,6 +205,39 @@ public class CustomListsTest {
         list.set(index, element);
     }
 
+    @Test
+    public void testThatWeCanGetExistingSublist() throws Exception {
+        fillList();
+
+        List<String> newList = list.subList(1, 3);
+
+        assertTrue(newList.contains("aa1a"));
+        assertTrue(newList.contains("ssss"));
+        assertFalse(newList.contains("aa0a"));
+        assertFalse(newList.contains("aa3a"));
+    }
+
+    @Test (expected = IllegalArgumentException.class)
+    public void testThatWeCanNotGetSublistWhereFromIndexIsMoreThanToIndex() throws Exception {
+        fillList();
+
+        List<String> newList = list.subList(4, 3);
+    }
+
+    @Test (expected = IndexOutOfBoundsException.class)
+    public void testThatWeCanNotGetSublistWhereAnyIndexIsNegative() throws Exception {
+        fillList();
+
+        List<String> newList = list.subList(-1, 3);
+    }
+
+    @Test (expected = IndexOutOfBoundsException.class)
+    public void testThatWeCanNotGetSublistWhereAnyIndexIsMoreThanArraySize() throws Exception {
+        fillList();
+
+        List<String> newList = list.subList(2, 15);
+    }
+
     //fill list with 10 elements to check capacity increase
     private void fillList() {
         list.add("aa0a");

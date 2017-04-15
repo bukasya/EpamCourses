@@ -175,7 +175,19 @@ public class CustomArrayList<T> implements List<T> {
     }
 
     @Override
-    public List<T> subList(int fromIndex, int toIndex) {
-        return null;
+    public List<T> subList(int fromIndex, int toIndex) throws IndexOutOfBoundsException, IllegalArgumentException {
+        if(fromIndex > 0 && toIndex > 0){
+            if(fromIndex <= size && toIndex <= size){
+                if(fromIndex < toIndex){
+                    List<T> newList = new CustomArrayList<>();
+                    for (int i = fromIndex; i <= toIndex; i++){
+                        newList.add((T) data[i]);
+                    }
+                    return newList;
+                }
+                throw new IllegalArgumentException();
+            }
+        }
+        throw new IndexOutOfBoundsException();
     }
 }
