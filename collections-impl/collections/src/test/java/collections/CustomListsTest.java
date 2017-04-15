@@ -276,6 +276,39 @@ public class CustomListsTest {
         assertThat(list.get(4), is(equalTo("xyz")));
     }
 
+    @Test
+    public void testThatWeCanCheckThatListContainsAllElementsOfSpecifiedCollection() throws Exception {
+        fillList();
+
+        List<String> listToCheckContains = new ArrayList<>();
+        listToCheckContains.add("ssss");
+        listToCheckContains.add("999");
+        listToCheckContains.add("aa4a");
+
+        assertTrue(list.containsAll(listToCheckContains));
+    }
+
+    @Test
+    public void testThatWeCanCheckThatListDoesNotContainAllElementsOfSpecifiedCollection() throws Exception {
+        fillList();
+
+        List<String> listToCheckContains = new ArrayList<>();
+        listToCheckContains.add("ssss");
+        listToCheckContains.add("999");
+        listToCheckContains.add("something");
+
+        assertFalse(list.containsAll(listToCheckContains));
+    }
+
+    @Test
+    public void testThatWeCanCheckThatListDoesNotContainEmptyCollection() throws Exception {
+        fillList();
+
+        List<String> listToCheckContains = new ArrayList<>();
+
+        assertFalse(list.containsAll(listToCheckContains));
+    }
+
     //fill list with 10 elements to check capacity increase
     private void fillList() {
         list.add("aa0a");

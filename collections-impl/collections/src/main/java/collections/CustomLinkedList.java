@@ -84,7 +84,14 @@ public class CustomLinkedList<T> implements List<T> {
 
     @Override
     public boolean containsAll(Collection<?> c) {
-        return false;
+        if(c.size() == 0) {
+            return false;
+        }
+        boolean containsAll = true;
+        for (Object element: c) {
+            containsAll = containsAll & contains(element);
+        }
+        return containsAll;
     }
 
     @Override
