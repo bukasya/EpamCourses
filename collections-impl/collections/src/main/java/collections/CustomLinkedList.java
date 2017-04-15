@@ -146,8 +146,9 @@ public class CustomLinkedList<T> implements List<T> {
             throw new IndexOutOfBoundsException();
         }
         Node<T> current = getNodeByIndex(index);
+        T oldElement = current.value;
         current.value = element;
-        return element;
+        return oldElement;
     }
 
     @Override

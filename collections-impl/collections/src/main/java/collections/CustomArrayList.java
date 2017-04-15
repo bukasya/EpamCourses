@@ -127,8 +127,9 @@ public class CustomArrayList<T> implements List<T> {
     @Override
     public T set(int index, T element) throws IndexOutOfBoundsException {
         if(index > 0 && index <= size){
+            T oldElement = (T) data[index];
             data[index] = element;
-            return element;
+            return oldElement;
         } else throw new IndexOutOfBoundsException();
     }
 
