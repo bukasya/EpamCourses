@@ -109,7 +109,10 @@ public class CustomArrayList<T> implements List<T> {
 
     @Override
     public T set(int index, T element) throws IndexOutOfBoundsException {
-        return null;
+        if(index > 0 && index <= size){
+            data[index] = element;
+            return element;
+        } else throw new IndexOutOfBoundsException();
     }
 
     @Override

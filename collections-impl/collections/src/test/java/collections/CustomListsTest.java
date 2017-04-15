@@ -185,6 +185,26 @@ public class CustomListsTest {
         assertThat(list.indexOf(element), is(equalTo(index)));
     }
 
+    @Test
+    public void testThatWeCanSetValueForElementAtExistingIndex() throws Exception {
+        fillList();
+        int index = 2;
+        String element = "222";
+
+        list.set(index, element);
+
+        assertThat(list.indexOf(element), is(equalTo(index)));
+    }
+
+    @Test (expected = IndexOutOfBoundsException.class)
+    public void testThatWeCanNotSetValueForElementAtNonExistingIndex() throws Exception {
+        fillList();
+        int index = 12;
+        String element = "We can't do this";
+
+        list.set(index, element);
+    }
+
     //fill list with 10 elements to check capacity increase
     private void fillList() {
         list.add("aa0a");
